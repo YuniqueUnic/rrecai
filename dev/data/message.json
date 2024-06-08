@@ -1,0 +1,30 @@
+[
+    {
+        "id": 1,
+        "text": "It was said that you would, destroy the Sith, not join them.",
+        "sender": "Obi-Wan Kenobi",
+        "timestamp": "12: 45",
+        "delivered": true
+    },
+    {
+        "id": 2,
+        "text": "It was you who would bring balance to the Force",
+        "sender": "Darth Vader",
+        "timestamp": "12: 45",
+        "delivered": false
+    },
+    {
+        "id": 3,
+        "text": "Not leave it in Darkness",
+        "sender": "Yoda",
+        "timestamp": "12: 47",
+        "delivered": true
+    },
+    {
+        "id": 4,
+        "text": "I hate you!",
+        "sender": "Anakin",
+        "timestamp": "12: 47",
+        "delivered": true
+    }
+]

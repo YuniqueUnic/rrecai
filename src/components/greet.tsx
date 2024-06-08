@@ -1,8 +1,7 @@
 "use client";
 
-import { MouseEventHandler, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { invoke } from "@tauri-apps/api/tauri";
-import { queryObjects } from "v8";
 
 function requestIncrement(num: number) {
   invoke("increase_counter", { increment: num })
@@ -24,8 +23,7 @@ export default function Greet() {
 export function ChangeTitleButton() {
   return (
     <button
-      data-theme="dark"
-      className="inline-block cursor-auto rounded-md bg-gray-400 px-4 py-3 text-center text-sm font-semibold uppercase text-white transition duration-200 ease-in-out hover:bg-gray-900"
+      className="inline-block cursor-auto btn"
       onClick={() => {
         invoke("setKV", { title: "Hello tauri - Next.js" })
           .then(() => {
@@ -38,39 +36,6 @@ export function ChangeTitleButton() {
     </button>
   );
 }
-
-// export function CounterButton() {
-//   return (
-//     <div className="flex flex-col items-center justify-center card">
-//       <div className="card-title justify-center">
-//         <text>Counter:</text>
-//         <input
-//           type="text"
-//           id="incrementNum"
-//           placeholder="Type here"
-//           className="input input-bordered w-full max-w-xs"
-//         />
-//       </div>
-//       <div className="card-body">
-//         <button
-//           data-theme="dark"
-//           className="inline-block cursor-auto rounded-md bg-gray-400 px-4 py-3 text-center text-sm font-semibold text-white transition duration-200 ease-in-out hover:bg-gray-900"
-//           onClick={() => {
-//             const incrementNode = document.getElementById("incrementNum");
-//             const incrementValue = incrementNode
-//               ? parseInt(incrementNode.innerText, 10)
-//               : 0;
-//             console.log("the value of incrementNum: ", incrementValue);
-
-//             requestIncrement(incrementValue);
-//           }}
-//         >
-//           Increment
-//         </button>
-//       </div>
-//     </div>
-//   );
-// }
 
 export function CounterButton() {
   // 使用 useRef 创建对输入元素的引用，并注解其类型为 HTMLInputElement
