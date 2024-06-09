@@ -1,86 +1,212 @@
 [
     {
         "id": 1,
-        "text": "It was said that you would, destroy the Sith, not join them.",
-        "sender": "Obi-Wan Kenobi",
-        "timestamp": "12: 45",
+        "text": "Let's discuss our plans for today.",
+        "sender": "Anakin",
+        "timestamp": "2024-06-10T12:45:00Z",
         "delivered": true
     },
     {
         "id": 2,
-        "text": "It was you who would bring balance to the Force",
+        "text": "Understood, Anakin. What time should we meet?",
         "sender": "Darth Vader",
-        "timestamp": "12: 45",
-        "delivered": false
+        "timestamp": "2024-06-10T12:46:00Z",
+        "delivered": true
     },
     {
         "id": 3,
-        "text": "Not leave it in Darkness",
-        "sender": "Yoda",
-        "timestamp": "12: 47",
+        "text": "How about in 5 minutes? I need to finish something first.",
+        "sender": "Anakin",
+        "timestamp": "2024-06-10T12:47:00Z",
         "delivered": true
     },
     {
         "id": 4,
-        "text": "I hate you!",
-        "sender": "Anakin",
-        "timestamp": "12: 47",
+        "text": "Agreed. I will be waiting.",
+        "sender": "Darth Vader",
+        "timestamp": "2024-06-10T12:47:30Z",
         "delivered": true
     },
     {
         "id": 5,
-        "text": "I am your father.",
-        "sender": "Darth Vader",
-        "timestamp": "12: 50",
+        "text": "I'm ready now, Darth Vader.",
+        "sender": "Anakin",
+        "timestamp": "2024-06-10T12:52:00Z",
         "delivered": true
     },
     {
         "id": 6,
-        "text": "No, that's not true! That's impossible!",
-        "sender": "Luke Skywalker",
-        "timestamp": "12: 50",
-        "delivered": false
-    },
-    {
-        "id": 7,
-        "text": "Search your feelings, you know it to be true.",
+        "text": "Good, let's begin.",
         "sender": "Darth Vader",
-        "timestamp": "12: 51",
+        "timestamp": "2024-06-10T12:53:00Z",
         "delivered": true
     },
     {
+        "id": 7,
+        "text": "I have a bad feeling about this.",
+        "sender": "Anakin",
+        "timestamp": "2024-06-10T13:00:00Z",
+        "delivered": false
+    },
+    {
         "id": 8,
-        "text": "I find your lack of faith disturbing.",
+        "text": "Don't trust your feelings, Anakin.",
         "sender": "Darth Vader",
-        "timestamp": "12: 52",
+        "timestamp": "2024-06-10T13:01:00Z",
         "delivered": true
     },
     {
         "id": 9,
-        "text": "The Force will be with you, always.",
-        "sender": "Obi-Wan Kenobi",
-        "timestamp": "12: 53",
+        "text": "I will try not to.",
+        "sender": "Anakin",
+        "timestamp": "2024-06-11T08:01:00Z",
         "delivered": true
     },
     {
         "id": 10,
-        "text": "I've got a bad feeling about this.",
-        "sender": "Han Solo",
-        "timestamp": "12: 54",
-        "delivered": false
+        "text": "Meet me tomorrow at the same time.",
+        "sender": "Darth Vader",
+        "timestamp": "2024-06-11T08:02:00Z",
+        "delivered": true
     },
     {
         "id": 11,
-        "text": "Do or do not. There is no try.",
-        "sender": "Yoda",
-        "timestamp": "12: 55",
+        "text": "Anakin, I need you to complete a mission for the Empire.",
+        "sender": "Darth Vader",
+        "timestamp": "2024-06-12T09:00:00Z",
         "delivered": true
     },
     {
         "id": 12,
-        "text": "In my experience, there is no such thing as luck.",
-        "sender": "Obi-Wan Kenobi",
-        "timestamp": "12: 56",
+        "text": "Yes, Master. I am ready for your orders.",
+        "sender": "Anakin",
+        "timestamp": "2024-06-12T09:05:00Z",
+        "delivered": true
+    },
+    {
+        "id": 13,
+        "text": "There is a senator we need to deal with. He is not in favor of our plans.",
+        "sender": "Darth Vader",
+        "timestamp": "2024-06-12T09:10:00Z",
+        "delivered": true
+    },
+    {
+        "id": 14,
+        "text": "I will make sure he changes his mind, or he will face the consequences.",
+        "sender": "Anakin",
+        "timestamp": "2024-06-12T09:15:00Z",
+        "delivered": true
+    },
+    {
+        "id": 15,
+        "text": "Remember, Anakin, do not let your emotions interfere with your duties.",
+        "sender": "Darth Vader",
+        "timestamp": "2024-06-12T09:20:00Z",
+        "delivered": true
+    },
+    {
+        "id": 16,
+        "text": "I understand, Master. I will not fail you.",
+        "sender": "Anakin",
+        "timestamp": "2024-06-12T09:25:00Z",
+        "delivered": true
+    },
+    {
+        "id": 17,
+        "text": "Good. I will be monitoring your progress. Do not disappoint me.",
+        "sender": "Darth Vader",
+        "timestamp": "2024-06-12T09:30:00Z",
+        "delivered": true
+    },
+    {
+        "id": 18,
+        "text": "I have completed the mission, Master. The senator has seen the light.",
+        "sender": "Anakin",
+        "timestamp": "2024-06-12T12:00:00Z",
+        "delivered": true
+    },
+    {
+        "id": 19,
+        "text": "Excellent work, Anakin. Your loyalty to the Empire is commendable.",
+        "sender": "Darth Vader",
+        "timestamp": "2024-06-12T12:05:00Z",
+        "delivered": true
+    },
+    {
+        "id": 20,
+        "text": "Thank you, Master. I am honored to serve.",
+        "sender": "Anakin",
+        "timestamp": "2024-06-12T12:10:00Z",
+        "delivered": true
+    },
+    {
+        "id": 21,
+        "text": "Prepare for your next mission. We have much to accomplish.",
+        "sender": "Darth Vader",
+        "timestamp": "2024-06-12T12:15:00Z",
+        "delivered": true
+    },
+    {
+        "id": 22,
+        "text": "I am ready, Master. My skills are at your disposal.",
+        "sender": "Anakin",
+        "timestamp": "2024-06-12T12:20:00Z",
+        "delivered": true
+    },
+    {
+        "id": 23,
+        "text": "I have received new intelligence. There is a Rebel base on the outskirts of the galaxy.",
+        "sender": "Darth Vader",
+        "timestamp": "2024-06-13T08:00:00Z",
+        "delivered": true
+    },
+    {
+        "id": 24,
+        "text": "I will find it and eliminate the threat, Master.",
+        "sender": "Anakin",
+        "timestamp": "2024-06-13T08:05:00Z",
+        "delivered": true
+    },
+    {
+        "id": 25,
+        "text": "Proceed with caution, Anakin. The Rebels are cunning.",
+        "sender": "Darth Vader",
+        "timestamp": "2024-06-13T08:10:00Z",
+        "delivered": true
+    },
+    {
+        "id": 26,
+        "text": "I will not underestimate them, Master.",
+        "sender": "Anakin",
+        "timestamp": "2024-06-13T08:15:00Z",
+        "delivered": true
+    },
+    {
+        "id": 27,
+        "text": "Keep me informed of your progress. The Empire depends on it.",
+        "sender": "Darth Vader",
+        "timestamp": "2024-06-13T08:20:00Z",
+        "delivered": true
+    },
+    {
+        "id": 28,
+        "text": "Meet me tomorrow at the same time.",
+        "sender": "Darth Vader",
+        "timestamp": "2024-06-14T08:02:00Z",
+        "delivered": false
+    },
+    {
+        "id": 29,
+        "text": "Meet me tomorrow at the same time.",
+        "sender": "Darth Vader",
+        "timestamp": "2024-06-14T08:03:50Z",
+        "delivered": false
+    },
+    {
+        "id": 30,
+        "text": "Meet me tomorrow at the same time.",
+        "sender": "Darth Vader",
+        "timestamp": "2024-06-14T08:05:13Z",
         "delivered": true
     }
 ]

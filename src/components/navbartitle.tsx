@@ -34,7 +34,7 @@ const NavbarTitle: React.FC<NavbarTitleProps> = ({
     <div>
       {/* Avatar Swap */}
       <div className="flex flex-row">
-        <label className="swap align-middle justify-center justify-items-center">
+        <label className="swap swap-flip align-middle justify-center justify-items-center">
           <input type="checkbox" onChange={onSwapChange} />
           <div className="swap-on">
             <div className="avatar online">
@@ -45,7 +45,7 @@ const NavbarTitle: React.FC<NavbarTitleProps> = ({
           </div>
           <div className="swap-off">
             <div className="avatar offline">
-              <div className="w-10 rounded">
+              <div className="w-10 rounded-full ">
                 <Image src={swapOffSrc} alt={swapOffAlt} width={8} height={8} />
               </div>
             </div>
