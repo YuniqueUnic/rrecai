@@ -26,21 +26,23 @@ function showTimestamp(timestamp: string, lastRecord: Message): boolean {
   return true;
 }
 
-export default function ChatBubble({
-  index,
-  message,
-  showTimestamp,
-  showfooter,
-  alt = defualt_alt,
-  src = defualt_src,
-}: {
+interface ChatBubbleProps {
   index: number;
   message: Message;
   showTimestamp: boolean;
   showfooter: boolean;
   alt?: string;
   src?: string;
-}) {
+}
+
+const ChatBubble: React.FC<ChatBubbleProps> = ({
+  index,
+  message,
+  showTimestamp,
+  showfooter,
+  alt = defualt_alt,
+  src = defualt_src,
+}) => {
   // 使用导入的 JSON 数据
   return (
     <div>
@@ -71,6 +73,7 @@ export default function ChatBubble({
       </div>
     </div>
   );
-}
+};
 
+export default ChatBubble;
 export { showTimestamp, ChatBubble };

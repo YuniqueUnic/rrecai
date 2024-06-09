@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import Image from "next/image";
 
 interface NavbarTitleProps {
@@ -70,3 +69,4 @@ const NavbarTitle: React.FC<NavbarTitleProps> = ({
 };
 
 export default NavbarTitle;
+export { NavbarTitle };

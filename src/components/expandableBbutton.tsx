@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 
 // 定义组件的 props 类型接口
 interface ExpandableButtonProps {

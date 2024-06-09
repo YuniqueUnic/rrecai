@@ -4,11 +4,10 @@ import React from "react";
 import Image from "next/image";
 import { cn } from "@/lib/util";
 import messagesjson from "../../dev/data/message.json";
-import NavbarTitle from "@/components/navbartitle";
+import { NavbarTitle } from "@/components/navbartitle";
 import { showTimestamp, ChatBubble } from "@/components/chatbubble";
 import { ThemeController } from "@/components/themecontroller";
 import { ExpandableButton } from "@/components/expandableBbutton";
-import { fromTheme } from "tailwind-merge";
 
 const bgshow = false;
 
