@@ -20,9 +20,14 @@ export default function Home() {
   let theme = "light";
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-2 card">
+    <main className="app-layout flex flex-col h-screen">
       {/* Header Navbar */}
-      <div className={cn("flex flex-col min-h-fit min-w-full", headerColor)}>
+      <div
+        className={cn(
+          "chat-navbar-container grid-row flex-none flex flex-col min-h-fit min-w-full top-0 sticky border-b",
+          headerColor
+        )}
+      >
         <header className="navbar flex flex-row justify-between min-h-fit min-w-full">
           {/* Expandable icon button */}
           <div className="navbar-start">
@@ -44,7 +49,7 @@ export default function Home() {
           </div>
           {/* Search */}
           <div className="flex flex-row flex-none navbar-end">
-            <button className="btn btn-ghost btn-circle landscape:hidden md:hidden">
+            <button className="btn btn-ghost btn-circle landscape:hidden sm:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -60,7 +65,7 @@ export default function Home() {
                 />
               </svg>
             </button>
-            <div className="hidden md:block">
+            <div className="hidden sm:block">
               <label className="input input-bordered flex items-center gap-2">
                 <input type="text" className="grow" placeholder="Search" />
                 <kbd className="kbd kbd-sm">⌘</kbd>
@@ -82,25 +87,16 @@ export default function Home() {
             />
           </div>
         </header>
-        <div id="HeaderLine" className="flex flex-col w-full">
-          {/* <div className="divider divider-center m-0 p-0 bg-current"></div> */}
-          <line
-            className={cn(
-              "bg-current w-full max-h-0.5 h-0.5",
-              theme !== "light" ? "opacity-0" : "opacity-40"
-            )}
-          />
-        </div>
       </div>
+
       {/* Chat area */}
       <div
         className={cn(
-          "flex flex-1 flex-col min-w-full align-bottom",
+          "chat-container flex-grow min-w-full overflow-y-scroll flex flex-col mb-28",
           chatbgColor
         )}
       >
-        <div className="flex flex-1"></div>
-        <div className="flex-none align-bottom">
+        <div className="">
           {/* Chat area */}
           <div
             className={cn("flex flex-col min-h-fit min-w-full p-2", chatColor)}
@@ -147,27 +143,41 @@ export default function Home() {
       </div>
 
       {/* Message edit Footer */}
-      <div className={cn("flex flex-row w-full p-2", footerColor)}>
+      <div
+        className={cn(
+          "chat-input-container flex-none min-w-full p-2 fixed bottom-0 max-h-full flex flex-row border-t",
+          footerColor
+        )}
+      >
         <div className="flex-1 flex">
           <label className="form-control w-full">
             {/* <div className="label">
             <span className="label-text">Your bio</span>
             <span className="label-text-alt">Alt label</span>
           </div> */}
-            <textarea
-              className="textarea textarea-bordered h-24 w-full"
+            <input
+              className="input  input-bordered h-12 w-full"
               placeholder=" Enter ''/'' to call functions"
-            ></textarea>
+            ></input>
             <div className="label">
               <span className="label-text-alt">
                 Enter <kbd className="kbd">/</kbd> to call functions
               </span>
-              <span className="place-items-end">Alt label</span>
+              <span className="place-items-end">ALT</span>
             </div>
           </label>
         </div>
-        <div className="flex-none min-h-full ml-4">
-          <button className="btn btn-primary h-full">Neutral</button>
+        <div className="flex-none ml-4">
+          <div className="join join-vertical">
+            <button className="btn btn-primary min-h-full join-item">
+              Send
+            </button>
+            <select className="select select-bordered join-item">
+              <option selected>Sci-fi</option>
+              <option>Drama</option>
+              <option>Action</option>
+            </select>
+          </div>
         </div>
       </div>
     </main>

@@ -26,5 +26,61 @@
         "sender": "Anakin",
         "timestamp": "12: 47",
         "delivered": true
+    },
+    {
+        "id": 5,
+        "text": "I am your father.",
+        "sender": "Darth Vader",
+        "timestamp": "12: 50",
+        "delivered": true
+    },
+    {
+        "id": 6,
+        "text": "No, that's not true! That's impossible!",
+        "sender": "Luke Skywalker",
+        "timestamp": "12: 50",
+        "delivered": false
+    },
+    {
+        "id": 7,
+        "text": "Search your feelings, you know it to be true.",
+        "sender": "Darth Vader",
+        "timestamp": "12: 51",
+        "delivered": true
+    },
+    {
+        "id": 8,
+        "text": "I find your lack of faith disturbing.",
+        "sender": "Darth Vader",
+        "timestamp": "12: 52",
+        "delivered": true
+    },
+    {
+        "id": 9,
+        "text": "The Force will be with you, always.",
+        "sender": "Obi-Wan Kenobi",
+        "timestamp": "12: 53",
+        "delivered": true
+    },
+    {
+        "id": 10,
+        "text": "I've got a bad feeling about this.",
+        "sender": "Han Solo",
+        "timestamp": "12: 54",
+        "delivered": false
+    },
+    {
+        "id": 11,
+        "text": "Do or do not. There is no try.",
+        "sender": "Yoda",
+        "timestamp": "12: 55",
+        "delivered": true
+    },
+    {
+        "id": 12,
+        "text": "In my experience, there is no such thing as luck.",
+        "sender": "Obi-Wan Kenobi",
+        "timestamp": "12: 56",
+        "delivered": true
     }
 ]
