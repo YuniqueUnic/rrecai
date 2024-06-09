@@ -25,38 +25,62 @@ export default function Home() {
       <div className={cn("flex flex-col min-h-fit min-w-full", headerColor)}>
         <header className="navbar flex flex-row justify-between min-h-fit min-w-full">
           {/* Expandable icon button */}
-          <ExpandableButton
-            key={"ExpandableButton"}
-            onChange={() => {
-              console.log("ExpandableButton clicked");
-            }}
-          />
+          <div className="navbar-start">
+            <ExpandableButton
+              key={"ExpandableButton"}
+              onChange={() => {
+                console.log("ExpandableButton clicked");
+              }}
+            />
+          </div>
           {/* Title */}
-          <NavbarTitle
-            key={"NavbarTitle"}
-            onSwapChange={() => {
-              console.log("NavbarTitle clicked");
-            }}
-          />
+          <div className="navbar-center pt-2">
+            <NavbarTitle
+              key={"NavbarTitle"}
+              onSwapChange={() => {
+                console.log("NavbarTitle clicked");
+              }}
+            />
+          </div>
           {/* Search */}
-          <label className="input input-bordered flex items-center gap-2">
-            <input type="text" className="grow" placeholder="Search" />
-            <kbd className="kbd kbd-sm">⌘</kbd>
-            <kbd className="kbd kbd-sm">K</kbd>
-          </label>
-          {/* Theme controller */}
-          <ThemeController
-            key={"themeContoller"}
-            themeValue="dark"
-            onThemeChange={(themeValue) => {
-              if (theme !== "light") {
-                theme = "light";
-              } else {
-                theme = "dark";
-              }
-              console.log("ThemeController clicked: ", theme);
-            }}
-          />
+          <div className="flex flex-row flex-none navbar-end">
+            <button className="btn btn-ghost btn-circle landscape:hidden md:hidden">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </button>
+            <div className="hidden md:block">
+              <label className="input input-bordered flex items-center gap-2">
+                <input type="text" className="grow" placeholder="Search" />
+                <kbd className="kbd kbd-sm">⌘</kbd>
+                <kbd className="kbd kbd-sm">K</kbd>
+              </label>
+            </div>
+            {/* Theme controller */}
+            <ThemeController
+              key={"themeContoller"}
+              themeValue="dark"
+              onThemeChange={(themeValue) => {
+                if (theme !== "light") {
+                  theme = "light";
+                } else {
+                  theme = "dark";
+                }
+                console.log("ThemeController clicked: ", theme);
+              }}
+            />
+          </div>
         </header>
         <div id="HeaderLine" className="flex flex-col w-full">
           {/* <div className="divider divider-center m-0 p-0 bg-current"></div> */}
@@ -124,14 +148,14 @@ export default function Home() {
 
       {/* Message edit Footer */}
       <div className={cn("flex flex-row w-full p-2", footerColor)}>
-        <div className="flex-1">
-          <label className="form-control">
+        <div className="flex-1 flex">
+          <label className="form-control w-full">
             {/* <div className="label">
             <span className="label-text">Your bio</span>
             <span className="label-text-alt">Alt label</span>
           </div> */}
             <textarea
-              className="textarea textarea-bordered h-24"
+              className="textarea textarea-bordered h-24 w-full"
               placeholder=" Enter ''/'' to call functions"
             ></textarea>
             <div className="label">
