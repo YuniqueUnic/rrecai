@@ -8,14 +8,13 @@ use tauri::{
 };
 
 #[cfg(not(feature = "verge-dev"))]
-pub static APP_ID: &str = "io.github.clash-verge-rev.clash-verge-rev";
+pub static APP_ID: &str = "io.github.rrecai.unic";
 #[cfg(feature = "verge-dev")]
-pub static APP_ID: &str = "io.github.clash-verge-rev.clash-verge-rev.dev";
+pub static APP_ID: &str = "io.github.rrecai.unic.dev";
 
 pub static PORTABLE_FLAG: OnceCell<bool> = OnceCell::new();
 
-static CLASH_CONFIG: &str = "config.yaml";
-static VERGE_CONFIG: &str = "verge.yaml";
+static RRECAICONFIG: &str = "config.yaml";
 static PROFILE_YAML: &str = "profiles.yaml";
 
 /// init portable flag
@@ -38,6 +37,7 @@ pub fn init_portable_flag() -> Result<()> {
 pub fn app_home_dir() -> Result<PathBuf> {
     use tauri::utils::platform::current_exe;
 
+    // portable mode
     let flag = PORTABLE_FLAG.get().unwrap_or(&false);
     if *flag {
         let app_exe = current_exe()?;
@@ -76,30 +76,26 @@ pub fn app_logs_dir() -> Result<PathBuf> {
     Ok(app_home_dir()?.join("logs"))
 }
 
-pub fn clash_path() -> Result<PathBuf> {
-    Ok(app_home_dir()?.join(CLASH_CONFIG))
-}
-
-pub fn verge_path() -> Result<PathBuf> {
-    Ok(app_home_dir()?.join(VERGE_CONFIG))
+pub fn rrecaipath() -> Result<PathBuf> {
+    Ok(app_home_dir()?.join(RRECAICONFIG))
 }
 
 pub fn profiles_path() -> Result<PathBuf> {
     Ok(app_home_dir()?.join(PROFILE_YAML))
 }
 
-pub fn clash_pid_path() -> Result<PathBuf> {
-    Ok(app_home_dir()?.join("clash.pid"))
+pub fn rrecaipid_path() -> Result<PathBuf> {
+    Ok(app_home_dir()?.join("rrecai.pid"))
 }
 
 #[cfg(not(target_os = "windows"))]
 pub fn service_path() -> Result<PathBuf> {
-    Ok(app_resources_dir()?.join("clash-verge-service"))
+    Ok(app_resources_dir()?.join("rrecai-service"))
 }
 
 #[cfg(windows)]
 pub fn service_path() -> Result<PathBuf> {
-    Ok(app_resources_dir()?.join("clash-verge-service.exe"))
+    Ok(app_resources_dir()?.join("rrecai-service.exe"))
 }
 
 pub fn service_log_file() -> Result<PathBuf> {
