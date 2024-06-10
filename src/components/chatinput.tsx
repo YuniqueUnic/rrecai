@@ -1,27 +1,65 @@
 "use client";
 
+import { cn } from "@/lib/util";
 // components/ChatInput.tsx
 import React, { useState } from "react";
-import { cn } from "../lib/util";
 
 interface ChatInputProps {
   buttonName?: string;
   actionOptions?: string[];
   onSend: (message: string) => void;
-  onChange: (query: string) => void;
+  onInputChange: (query: string) => void;
+  onSelectChange: (option: string) => void;
+  onFuncButtonClicked: (buttonName: string) => void;
 }
 
 const defualt_name = "Send";
+let defualt_buttons = ["Add", "Del", "Full", "Markdonwn"];
 const defualt_options = ["Message", "Info", "Todo", "Secret", "Idea"];
 
 const ChatInput: React.FC<ChatInputProps> = ({
   buttonName = defualt_name,
   actionOptions = defualt_options,
   onSend,
-  onChange,
+  onInputChange,
+  onSelectChange,
+  onFuncButtonClicked,
 }) => {
   const [inputValue, setInputValue] = useState("");
-  const [selectValue, setSelectValue] = useState("Sci-fi");
+  const [selectValue, setSelectValue] = useState("Message");
+  const [sendMethod, setSendMethod] = useState<"enter" | "ctrlEnter">(
+    "ctrlEnter"
+  );
+  const [isFocused, setIsFocused] = useState(false);
+
+  const handleFocus = () => setIsFocused(true);
+  const handleBlur = () => setIsFocused(false);
+
+  const textareaClass = isFocused ? "h-48" : "h-auto";
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (sendMethod === "enter") {
+      if (e.key === "Enter" && !e.ctrlKey) {
+        onSend(inputValue);
+        setInputValue("");
+        e.preventDefault();
+      } else if (e.key === "Enter" && e.ctrlKey) {
+        setInputValue((prev) => prev + "\n");
+      }
+    } else if (sendMethod === "ctrlEnter") {
+      if (e.key === "Enter" && e.ctrlKey) {
+        onSend(inputValue);
+        setInputValue("");
+        e.preventDefault();
+      } else if (e.key === "Enter" && !e.ctrlKey) {
+        // do nothing
+      }
+    }
+  };
+
+  const handleToggleChange = () => {
+    setSendMethod((prev) => (prev === "enter" ? "ctrlEnter" : "enter"));
+  };
 
   const handleSend = () => {
     if (inputValue.trim()) {
@@ -30,44 +68,101 @@ const ChatInput: React.FC<ChatInputProps> = ({
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputValue(e.target.value);
-    onChange(e.target.value);
+    onInputChange(e.target.value);
   };
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectValue(e.target.value);
+    onSelectChange(e.target.value);
+  };
+
+  const handleFuncButtonClicked = (buttonName: string) => {
+    onFuncButtonClicked(buttonName);
   };
 
   return (
-    <div className="chat-input-container min-w-full flex flex-row">
-      {/* Input */}
-      <div className="flex-1 flex">
-        <label className="form-control w-full">
-          <input
-            className="input input-bordered h-12 w-full"
-            placeholder="Enter '/' to call functions"
-            value={inputValue}
-            onChange={handleChange}
-          />
-          <div className="label">
-            <span className="label-text-alt">
-              Enter <kbd className="kbd">/</kbd> to call functions
-            </span>
-            <span className="place-items-end">ALT</span>
+    <div className="chat-input-container w-full flex flex-col">
+      {/* Func Buttons */}
+      <div className="flex justify-between place-items-center">
+        <span className="overflow-y-hidden">
+          <div className="join flex flex-row gap-2">
+            {defualt_buttons.slice(1).map((button) => (
+              <button
+                key={button}
+                className="btn btn-xs btn-outline"
+                onClick={() => handleFuncButtonClicked(button)}
+              >
+                {button}
+              </button>
+            ))}
           </div>
-        </label>
-      </div>
-
-      {/* button and options */}
-      <div className="flex-none ml-4">
-        <div className="join join-vertical">
+        </span>
+        <span className="flex items-center">
           <button
-            className="btn btn-primary min-h-full join-item"
-            onClick={handleSend}
+            key={defualt_buttons[0]}
+            className="btn btn-xs btn-circle btn-ghost bg-transparent"
+            onClick={() => handleFuncButtonClicked(defualt_buttons[0])}
           >
-            {buttonName}
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 20 22">
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+              />
+            </svg>
           </button>
+        </span>
+      </div>
+      {/* Input and send button */}
+      <div className="mt-2 chat-input-container-2 w-full flex flex-row flex-grow ">
+        {/* Input */}
+        <div className="flex-1 flex-col">
+          <label className="form-control w-full">
+            <textarea
+              className={cn(
+                " textarea textarea-bordered w-full col-span-3",
+                textareaClass
+              )}
+              placeholder="Enter '/' to call functions"
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+              value={inputValue}
+              // inputMode="text"
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
+              rows={1}
+            />
+          </label>
+        </div>
+      </div>
+      {/* Send button and options */}
+      <div className="flex-none flex align-middle justify-between mt-2">
+        <div className="flex place-items-end">
+          <div className="flex align-middle gap-2">
+            <div className="flex align-middle">
+              <input
+                type="checkbox"
+                className="toggle toggle-md absolute opacity-0 align-middle"
+                checked={sendMethod === "enter"}
+                onChange={handleToggleChange}
+              />
+              <kbd
+                className={cn(
+                  "kbd kbd-xs",
+                  sendMethod === "enter" ? "bg-gray-200" : ""
+                )}
+              >
+                {sendMethod === "enter" ? "" : "Ctrl"}
+              </kbd>
+            </div>
+            <kbd className="kbd kbd-sm">Enter</kbd>
+          </div>
+        </div>
+        <div className="join ">
           <select
             className="select select-bordered join-item"
             value={selectValue}
@@ -79,6 +174,9 @@ const ChatInput: React.FC<ChatInputProps> = ({
               </option>
             ))}
           </select>
+          <button className="btn btn-primary join-item" onClick={handleSend}>
+            {buttonName}
+          </button>
         </div>
       </div>
     </div>

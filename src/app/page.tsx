@@ -80,7 +80,7 @@ export default function Home() {
       {/* Chat area */}
       <div
         className={cn(
-          "chat-container z-0 flex-grow min-w-full overflow-y-scroll flex flex-col mb-28",
+          "chat-container z-0 flex-grow min-w-full overflow-y-scroll flex flex-col mb-40",
           chatbgColor
         )}
       >
@@ -105,11 +105,16 @@ export default function Home() {
       {/* Message edit Footer */}
       <div
         className={cn(
-          "chat-input-container flex-none min-w-full p-2 fixed bottom-0 max-h-full flex flex-row border-t",
+          "chat-input-container flex-none w-full p-2 fixed bottom-0 max-h-full flex flex-row border-t",
           footerColor
         )}
       >
-        <ChatInput onSend={handleEvent} onChange={handleEvent} />
+        <ChatInput
+          onSend={handleEvent}
+          onInputChange={handleEvent}
+          onSelectChange={handleEvent}
+          onFuncButtonClicked={handleEvent}
+        />
       </div>
     </main>
   );
