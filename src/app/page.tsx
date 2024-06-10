@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { use, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/util";
 
 import {
@@ -29,6 +29,16 @@ const handleEvent = (query: string) => {
 };
 
 export default function Home() {
+  const [inputAreaHight, setInputAreaHight] = useState(120);
+
+  const handleInputBlur = () => {
+    setInputAreaHight(120);
+  };
+
+  const handleInputFocus = () => {
+    setInputAreaHight(223);
+  };
+
   return (
     <main className="app-layout flex flex-col h-screen hero">
       {/* Header Navbar */}
@@ -80,9 +90,10 @@ export default function Home() {
       {/* Chat area */}
       <div
         className={cn(
-          "chat-container z-0 flex-grow min-w-full overflow-y-scroll flex flex-col mb-40",
+          "chat-container z-0 flex-grow min-w-full overflow-y-scroll flex flex-col",
           chatbgColor
         )}
+        style={{ marginBottom: inputAreaHight }}
       >
         <div
           className={cn("flex flex-col min-h-fit min-w-full p-2", chatColor)}
@@ -104,8 +115,10 @@ export default function Home() {
 
       {/* Message edit Footer */}
       <div
+        id="messageEditFooter"
+        // ref={footerInputRef}
         className={cn(
-          "chat-input-container flex-none w-full p-2 fixed bottom-0 max-h-full flex flex-row border-t",
+          "chat-input-container flex-none w-full p-2 fixed bottom-0 max-h-screen flex flex-row border-t",
           footerColor
         )}
       >
@@ -114,6 +127,8 @@ export default function Home() {
           onInputChange={handleEvent}
           onSelectChange={handleEvent}
           onFuncButtonClicked={handleEvent}
+          onInputFocus={handleInputFocus}
+          onInputBlur={handleInputBlur}
         />
       </div>
     </main>

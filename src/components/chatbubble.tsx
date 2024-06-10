@@ -2,14 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import { cn, parseTimestamp, formatTimestamp } from "@/lib/util";
-
-interface Message {
-  id: number;
-  text: string;
-  sender: string;
-  timestamp: string;
-  delivered: boolean;
-}
+import { Message } from "@/communicate/usermessage";
 
 const defaultAlt = "Next.js + Tailwind CSS + TypeScript";
 const defaultSrc =

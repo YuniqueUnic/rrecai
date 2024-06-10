@@ -9,6 +9,8 @@ interface ChatInputProps {
   actionOptions?: string[];
   onSend: (message: string) => void;
   onInputChange: (query: string) => void;
+  onInputFocus?: () => void;
+  onInputBlur?: () => void;
   onSelectChange: (option: string) => void;
   onFuncButtonClicked: (buttonName: string) => void;
 }
@@ -22,6 +24,8 @@ const ChatInput: React.FC<ChatInputProps> = ({
   actionOptions = defualt_options,
   onSend,
   onInputChange,
+  onInputFocus,
+  onInputBlur,
   onSelectChange,
   onFuncButtonClicked,
 }) => {
@@ -32,8 +36,19 @@ const ChatInput: React.FC<ChatInputProps> = ({
   );
   const [isFocused, setIsFocused] = useState(false);
 
-  const handleFocus = () => setIsFocused(true);
-  const handleBlur = () => setIsFocused(false);
+  const handleFocus = () => {
+    if (onInputFocus) {
+      onInputFocus();
+    }
+    setIsFocused(true);
+  };
+
+  const handleBlur = () => {
+    if (onInputBlur) {
+      onInputBlur();
+    }
+    setIsFocused(false);
+  };
 
   const textareaClass = isFocused ? "h-48" : "h-auto";
 
@@ -117,8 +132,8 @@ const ChatInput: React.FC<ChatInputProps> = ({
           </button>
         </span>
       </div>
-      {/* Input and send button */}
-      <div className="mt-2 chat-input-container-2 w-full flex flex-row flex-grow ">
+      {/* Input */}
+      <div className="mt-2 chat-input-container-2 flex flex-row">
         {/* Input */}
         <div className="flex-1 flex-col">
           <label className="form-control w-full">
@@ -140,7 +155,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
         </div>
       </div>
       {/* Send button and options */}
-      <div className="flex-none flex align-middle justify-between mt-2">
+      <div className="flex-none flex justify-between mt-2">
         <div className="flex place-items-end">
           <div className="flex align-middle gap-2">
             <div className="flex align-middle">
