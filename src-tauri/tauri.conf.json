@@ -1,8 +1,8 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/schema.json",
   "build": {
-    "beforeBuildCommand": "npm run build",
-    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "export RRECAI_ENV='TAURI' && pnpm build",
+    "beforeDevCommand": "export RRECAI_ENV='TAURI' && pnpm dev",
     "devPath": "http://localhost:4843",
     "distDir": "../out"
   },
@@ -12,7 +12,27 @@
   },
   "tauri": {
     "allowlist": {
-      "all": false
+      "shell": {
+        "all": true
+      },
+      "window": {
+        "all": true
+      },
+      "clipboard": {
+        "all": true
+      },
+      "path": {
+        "all": true
+      },
+      "fs": {
+        "exists": true,
+        "readFile": true,
+        "scope": [
+          "$APPDATA/**",
+          "$RESOURCE/../**",
+          "**"
+        ]
+      }
     },
     "bundle": {
       "active": true,
@@ -29,7 +49,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "com.rrecai.unic",
       "longDescription": "",
       "macOS": {
         "entitlements": null,

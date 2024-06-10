@@ -36,6 +36,9 @@ const ChatInput: React.FC<ChatInputProps> = ({
   );
   const [isFocused, setIsFocused] = useState(false);
 
+  const [isFull, setIsFull] = useState(false);
+  const textAreaRef = React.useRef<HTMLTextAreaElement>(null);
+
   const handleFocus = () => {
     if (onInputFocus) {
       onInputFocus();
@@ -72,7 +75,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
     }
   };
 
-  const handleToggleChange = () => {
+  const handleSendWayChange = () => {
     setSendMethod((prev) => (prev === "enter" ? "ctrlEnter" : "enter"));
   };
 
@@ -95,6 +98,32 @@ const ChatInput: React.FC<ChatInputProps> = ({
 
   const handleFuncButtonClicked = (buttonName: string) => {
     onFuncButtonClicked(buttonName);
+    switch (buttonName) {
+      case "Add":
+        break;
+      case "Del":
+        setInputValue("");
+        break;
+      case "Full":
+        if (textAreaRef.current) {
+          // if (!isFull) {
+          //   setIsFull(true);
+          //   console.log(screen.height);
+          //   textAreaRef.current.style.height = screen.height - 152 + "px";
+          //   handleFocus();
+          // } else {
+          //   setIsFull(false);
+          //   textAreaRef.current.style.height = "auto";
+          //   handleBlur();
+          //   textAreaRef.current.focus();
+          // }
+        }
+        break;
+      case "Markdown":
+        break;
+      default:
+        break;
+    }
   };
 
   return (
@@ -139,10 +168,11 @@ const ChatInput: React.FC<ChatInputProps> = ({
           <label className="form-control w-full">
             <textarea
               className={cn(
-                " textarea textarea-bordered w-full col-span-3",
+                " textarea textarea-bordered w-full col-span-3 resize-none",
                 textareaClass
               )}
               placeholder="Enter '/' to call functions"
+              ref={textAreaRef}
               onFocus={handleFocus}
               onBlur={handleBlur}
               value={inputValue}
@@ -163,7 +193,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
                 type="checkbox"
                 className="toggle toggle-md absolute opacity-0 align-middle"
                 checked={sendMethod === "enter"}
-                onChange={handleToggleChange}
+                onChange={handleSendWayChange}
               />
               <kbd
                 className={cn(

@@ -1,7 +1,8 @@
 "use client";
 
-import React, { use, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/util";
+import { env } from "process";
 
 import {
   messagesjson,
@@ -29,7 +30,18 @@ const handleEvent = (query: string) => {
 };
 
 export default function Home() {
-  const [inputAreaHight, setInputAreaHight] = useState(120);
+  // const [isClient, setIsClient] = useState(false);
+  const [inputAreaHight, setInputAreaHight] = useState(150);
+  const chatAreaRef = useRef<HTMLDivElement>(null);
+  const inputEditorRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // setIsClient(true);
+    if (chatAreaRef.current && inputEditorRef.current) {
+      const inputEditorHight = inputEditorRef.current.offsetHeight;
+      chatAreaRef.current.style.marginBottom = `${inputEditorHight}px`;
+    }
+  }, [inputAreaHight]);
 
   const handleInputBlur = () => {
     setInputAreaHight(120);
@@ -89,11 +101,12 @@ export default function Home() {
 
       {/* Chat area */}
       <div
+        id="chatArea"
+        ref={chatAreaRef}
         className={cn(
           "chat-container z-0 flex-grow min-w-full overflow-y-scroll flex flex-col",
           chatbgColor
         )}
-        style={{ marginBottom: inputAreaHight }}
       >
         <div
           className={cn("flex flex-col min-h-fit min-w-full p-2", chatColor)}
@@ -115,13 +128,14 @@ export default function Home() {
 
       {/* Message edit Footer */}
       <div
-        id="messageEditFooter"
-        // ref={footerInputRef}
+        id="inputEditor"
+        ref={inputEditorRef}
         className={cn(
           "chat-input-container flex-none w-full p-2 fixed bottom-0 max-h-screen flex flex-row border-t",
           footerColor
         )}
       >
+        {/* {isClient ? ( */}
         <ChatInput
           onSend={handleEvent}
           onInputChange={handleEvent}
@@ -130,6 +144,7 @@ export default function Home() {
           onInputFocus={handleInputFocus}
           onInputBlur={handleInputBlur}
         />
+        {/* ) : null} */}
       </div>
     </main>
   );

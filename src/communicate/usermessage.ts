@@ -21,5 +21,10 @@ async function getMessages(): Promise<Message[]> {
   return messages;
 }
 
+async function getMessage(id: number): Promise<Message> {
+  const message: Message = await invoke("get_message", { id: id });
+  return message;
+}
+
 export type { Message };
 export { postMessage, getMessages };
