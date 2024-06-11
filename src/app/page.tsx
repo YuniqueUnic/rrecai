@@ -2,7 +2,6 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/util";
-import { env } from "process";
 
 import {
   messagesjson,
@@ -75,6 +74,7 @@ export default function Home() {
             <NavbarTitle
               key={"NavbarTitle"}
               onSwapChange={() => {
+                // stop_listen();
                 console.log("NavbarTitle clicked");
               }}
             />
