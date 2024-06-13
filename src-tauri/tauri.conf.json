@@ -43,11 +43,11 @@
       },
       "externalBin": [],
       "icon": [
-        "icons/32x32.png",
-        "icons/128x128.png",
-        "icons/128x128@2x.png",
-        "icons/icon.icns",
-        "icons/icon.ico"
+        "myicons/32x32.png",
+        "myicons/128x128.png",
+        "myicons/128x128@2x.png",
+        "myicons/icon.icns",
+        "myicons/icon.ico"
       ],
       "identifier": "com.rrecai.unic",
       "longDescription": "",

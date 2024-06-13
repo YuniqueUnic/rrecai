@@ -8,14 +8,39 @@ mod utils;
 
 use std::error::Error;
 
-use tauri::Manager;
+use tauri::{CustomMenuItem, Manager, Menu, MenuItem, Submenu};
 
 fn main() {
     // let app_state = AppState::new("reccai", 0);
+    // 这里 `"quit".to_string()` 定义菜单项 ID，第二个参数是菜单项标签。
+    let quit = CustomMenuItem::new("quit".to_string(), "Quit")
+        .accelerator("Ctrl+U")
+        .disabled();
+    let close = CustomMenuItem::new("close".to_string(), "Close");
+    let submenu = Submenu::new("File", Menu::new().add_item(quit).add_item(close));
+    // let mymenu =
+    let menu = Menu::new()
+        .add_native_item(MenuItem::Copy)
+        .add_item(CustomMenuItem::new("hide", "Hide"))
+        .add_submenu(submenu);
 
     tauri::Builder::default()
+        .menu(menu)
         // .manage(app_state)
-        .setup(|app| setup_event_listener(app))
+        .setup(|app| {
+            setup_event_listener(app);
+
+            let docs_window = tauri::WindowBuilder::new(
+                app,
+                "external", /* the unique window label */
+                tauri::WindowUrl::External("https://tauri.app/".parse().unwrap()),
+            )
+            .build()?;
+            let local_window =
+                tauri::WindowBuilder::new(app, "local", tauri::WindowUrl::App("index.html".into()))
+                    .build()?;
+            Ok(())
+        })
         .invoke_handler(tauri::generate_handler![println_str])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
