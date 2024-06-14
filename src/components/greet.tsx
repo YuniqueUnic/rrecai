@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import React, {FC, Suspense, useEffect, useRef, useState } from "react";
 import { invoke } from "@tauri-apps/api/tauri";
+import { fetchData } from "@/lib/mock";
 
 function requestIncrement(num: number) {
   invoke("increase_counter", { increment: num })
@@ -11,13 +12,15 @@ function requestIncrement(num: number) {
     .catch(console.error);
 }
 
-export default function Greet() {
+
+export const Greet:React.FC<{load_sec:number}> = ({load_sec}) =>{
   useEffect(() => {
+    // use(fetchData("/albums",load_sec));
     invoke<string>("greet", { name: "Hello tauri - Next.js" })
       .then(console.log)
       .catch(console.error);
   }, []);
-  return <div>Greetings!</div>;
+  return <div >Greetings!</div>;
 }
 
 export function ChangeTitleButton() {
@@ -73,4 +76,56 @@ export function CounterButton() {
       </div>
     </div>
   );
+}
+
+
+
+export const CounterAddButton:FC<{onButtonClicked?:(event: React.MouseEvent<HTMLButtonElement>) => void}> = ({onButtonClicked}) =>{
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [numClicked,setNumClicked] = useState(0);
+
+    const handleClick= (event: React.MouseEvent<HTMLButtonElement>)=>{
+      setNumClicked(numClicked => numClicked + 1);
+      if (onButtonClicked && buttonRef.current) {
+          onButtonClicked(event);
+      }
+    }
+
+    return <>
+      <div>
+        <Suspense fallback={<h2>Loadiing...</h2>}>
+          <button className="btn btn-primary" ref={buttonRef} onClick={handleClick}>
+            {!numClicked ? "Have not been clicked yet, click me" : "Clicked: " + numClicked}
+            </button>
+        </Suspense>
+      </div>
+    </>
+}
+
+
+
+ 
+// This is a workaround for a bug to get the demo running.
+// TODO: replace with real implementation when the bug is fixed.
+function use(promise: { status: string; value: any; reason: any; then: (arg0: (result: any) => void, arg1: (reason: any) => void) => void; }) {
+  if (promise.status === 'fulfilled') {
+    return promise.value;
+  } else if (promise.status === 'rejected') {
+    throw promise.reason;
+  } else if (promise.status === 'pending') {
+    throw promise;
+  } else {
+    promise.status = 'pending';
+    promise.then(
+      result => {
+        promise.status = 'fulfilled';
+        promise.value = result;
+      },
+      reason => {
+        promise.status = 'rejected';
+        promise.reason = reason;
+      },      
+    );
+    throw promise;
+  }
 }
