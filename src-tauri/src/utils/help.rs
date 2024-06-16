@@ -1,11 +1,43 @@
 use anyhow::{anyhow, bail, Context, Result};
 // use nanoid::nanoid;
 use serde::{de::DeserializeOwned, Serialize};
-use std::{collections::btree_set::Range, fs, path::PathBuf, str::FromStr};
+use std::{fs, path::PathBuf, str::FromStr};
 use tauri::{
     api::shell::{open, Program},
     Manager,
 };
+
+/// read data from yaml as struct T
+pub fn read_yaml<T: DeserializeOwned>(path: &PathBuf) -> Result<T> {
+    if !path.exists() {
+        bail!("file not found \"{}\"", path.display());
+    }
+
+    let yaml_str = fs::read_to_string(path)
+        .with_context(|| format!("failed to read the file \"{}\"", path.display()))?;
+
+    serde_yaml::from_str::<T>(&yaml_str).with_context(|| {
+        format!(
+            "failed to read the file with yaml format \"{}\"",
+            path.display()
+        )
+    })
+}
+
+/// save the data to the file
+/// can set `prefix` string to add some comments
+pub fn save_yaml<T: Serialize>(path: &PathBuf, data: &T, prefix: Option<&str>) -> Result<()> {
+    let data_str = serde_yaml::to_string(data)?;
+
+    let yaml_str = match prefix {
+        Some(prefix) => format!("{prefix}\n\n{data_str}"),
+        None => data_str,
+    };
+
+    let path_str = path.as_os_str().to_string_lossy().to_string();
+    fs::write(path, yaml_str.as_bytes())
+        .with_context(|| format!("failed to save file \"{path_str}\""))
+}
 
 const ALPHABET: [char; 62] = [
     '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
@@ -34,8 +66,8 @@ pub fn parse_str<T: FromStr>(target: &str, key: &str) -> Option<T> {
 
 /// open file
 /// use vscode by default
-pub fn open_file(editor: &str, path: PathBuf, app: tauri::AppHandle) -> Result<()> {
-    let _ = match Program::from_str(editor) {
+pub fn open_file(editor_name: &str, path: PathBuf, app: tauri::AppHandle) -> Result<()> {
+    let _ = match Program::from_str(editor_name) {
         Ok(editor) => open(&app.shell_scope(), path.to_string_lossy(), Some(editor)),
         Err(err) => {
             log::error!(target: "app", "Can't find VScode `{err}`");
@@ -47,13 +79,13 @@ pub fn open_file(editor: &str, path: PathBuf, app: tauri::AppHandle) -> Result<(
     Ok(())
 }
 
-pub fn open_file_code(path: PathBuf, app: tauri::AppHandle) -> Result<()> {
+pub fn open_file_in_code(path: PathBuf, app: tauri::AppHandle) -> Result<()> {
     #[cfg(target_os = "macos")]
     let code = "Visual Studio Code";
     #[cfg(not(target_os = "macos"))]
     let code = "code";
 
-    return open_file(code, path, app);
+    open_file(code, path, app)
 }
 
 #[macro_export]
@@ -113,7 +145,7 @@ macro_rules! ret_err {
 #[test]
 fn test_parse_value() {
     let test_1 = "upload=111; download=2222; total=3333; expire=444";
-    let test_2 = "attachment; filename=Clash.yaml";
+    let test_2 = "attachment; filename=Clash.json";
 
     assert_eq!(parse_str::<usize>(test_1, "upload").unwrap(), 111);
     assert_eq!(parse_str::<usize>(test_1, "download").unwrap(), 2222);
@@ -121,7 +153,7 @@ fn test_parse_value() {
     assert_eq!(parse_str::<usize>(test_1, "expire").unwrap(), 444);
     assert_eq!(
         parse_str::<String>(test_2, "filename").unwrap(),
-        format!("Clash.yaml")
+        format!("Clash.json")
     );
 
     assert_eq!(parse_str::<usize>(test_1, "aaa"), None);

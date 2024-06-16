@@ -2,8 +2,8 @@ import { invoke } from "@tauri-apps/api/tauri";
 
 interface Message {
   id: number;
-  text: string;
   sender: string;
+  message: string;
   timestamp: string;
   delivered: boolean;
 }

@@ -1,37 +1,31 @@
-use std::sync::{Arc, Mutex};
+use std::sync::Arc;
 
-use anyhow::Error;
+use once_cell::sync::OnceCell;
+use parking_lot::Mutex;
+use rusqlite::Connection;
 
-#[derive(Default)]
-struct AppState {
-    name: String,
-    counter: Arc<Mutex<i32>>,
+use super::{draft::Draft, rrecai::IRrecai};
+
+pub struct AppConfig {
+    rrecai_config: Draft<IRrecai>,
+    db_config: Arc<Mutex<Connection>>,
 }
 
-impl AppState {
-    pub fn new(name: &str, counter_init: i32) -> Self {
-        Self {
-            name: name.into(),
-            counter: Arc::new(Mutex::new(counter_init)),
-        }
+impl AppConfig {
+    pub fn global() -> &'static AppConfig {
+        static CONFIG: OnceCell<AppConfig> = OnceCell::new();
+
+        CONFIG.get_or_init(|| AppConfig {
+            rrecai_config: todo!(),
+            db_config: todo!(),
+        })
     }
 
-    pub fn set_name(&mut self, name: String) -> Result<(), Error> {
-        self.name = name;
-        Ok(())
+    pub fn rrecai() -> Draft<IRrecai> {
+        Self::global().rrecai_config.clone()
     }
 
-    pub fn get_name(&self) -> String {
-        self.name.to_string()
-    }
-}
-
-trait counter {
-    fn get_counter_num(counter: &i32) -> i32 {
-        *counter
-    }
-    fn increase(counter: &mut i32, num: i32) -> Result<i32, Error> {
-        *counter += num;
-        Ok(*counter)
+    pub fn database() -> Arc<Mutex<Connection>> {
+        Self::global().db_config.clone()
     }
 }

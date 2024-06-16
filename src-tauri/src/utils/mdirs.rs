@@ -7,14 +7,14 @@ use tauri::{
     Env,
 };
 
-#[cfg(not(feature = "verge-dev"))]
+#[cfg(not(feature = "rrecai-dev"))]
 pub static APP_ID: &str = "io.github.rrecai.unic";
-#[cfg(feature = "verge-dev")]
+#[cfg(feature = "rrecai-dev")]
 pub static APP_ID: &str = "io.github.rrecai.unic.dev";
 
 pub static PORTABLE_FLAG: OnceCell<bool> = OnceCell::new();
 
-static RRECAICONFIG: &str = "config.yaml";
+static RRECAICONFIG: &str = "rrecai.yaml";
 static PROFILE_YAML: &str = "profiles.yaml";
 
 /// init portable flag
@@ -76,7 +76,7 @@ pub fn app_logs_dir() -> Result<PathBuf> {
     Ok(app_home_dir()?.join("logs"))
 }
 
-pub fn rrecaipath() -> Result<PathBuf> {
+pub fn rrecai_path() -> Result<PathBuf> {
     Ok(app_home_dir()?.join(RRECAICONFIG))
 }
 
